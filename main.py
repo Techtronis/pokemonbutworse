@@ -4,9 +4,10 @@ import random
 defaultPokemons = ["Pikachu", "Salamèche", "Carapuce"]
 otherPokemons = ["Chenipan", "Aspicot", "Piafabec", "Rondoudou", "Rattata", "Bulbizarre"]
 otherAttacks = ["Morsure", "Claque", "Griffure"]
+playerPokemons = []
 noms = ["Joan", "Diego", "Arianit", "Thomas", "Hugo", "André", "Antonin"]
 enemyHP = 60
-hp = 60
+hp = 60 
 potions = 1
 attacks = []
 attackDamage = [20, 10, 15]
