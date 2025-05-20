@@ -4,12 +4,10 @@ import random
 defaultPokemons = ["Pikachu", "Salamèche", "Carapuce"]
 otherPokemons = ["Chenipan", "Aspicot", "Piafabec", "Rondoudou", "Rattata", "Bulbizarre"]
 otherAttacks = ["Morsure", "Claque", "Griffure"]
-playerPokemons = []
 noms = ["Joan", "Diego", "Arianit", "Thomas", "Hugo", "André", "Antonin"]
 enemyHP = 60
 hp = 60
 potions = 1
-others = [""]
 attacks = []
 attackDamage = [20, 10, 15]
 
@@ -24,10 +22,9 @@ def road():
     print(f"Tu rencontres {enemyUser} et il utilise {enemyPokemon}")
     print(f"{enemyPokemon} à {enemyHP}HP, Tu as {hp}HP")
     battleOn = True
-
     #Rencontre avec l'enemy
     while(battleOn and hp > 0):
-
+        #Choix de combat -> choix d'attaques
         battleChoice = int(input(f"Que veux-tu faire? (1) Attaquer | (2) Objets | (3) Fuir "))
         enemyChoice = int(attackDamage[random.randint(0, len(attackDamage)-1)])
         if enemyHP > 0 or hp > 0:
@@ -46,6 +43,7 @@ def road():
                     print("Tu n'as plus de potions. Tu peux en acheter au magasin après ce combat.")
             else:
                 print("Tu ne peux pas t'enfuir quand tu combats un entraineur.")
+        #décés du pokemon
         if hp <= 0 or enemyHP <= 0:
             if hp <= 0:
                 print("Tu es mort. Ton pokémon va étre envoyé à l'hopital.")
@@ -55,7 +53,7 @@ def road():
                 enemyHP = 60
             battleOn = False
             location()
-
+#Hautes herbes
 def grass():
     enemyPokemon = otherPokemons[random.randint(0, len(otherPokemons)-1)]
     global hp
@@ -66,7 +64,7 @@ def grass():
     battleOn = True
 
     while(battleOn and hp > 0):
-
+        #Choix de combats
         battleChoice = int(input(f"Que veux-tu faire? (1) Attaquer | (2) Objets | (3) Fuir "))
         enemyChoice = int(attackDamage[random.randint(0, len(attackDamage)-1)])
         if enemyHP > 0 or hp > 0:
@@ -76,6 +74,7 @@ def grass():
                 print(f"Tu lances {attacks[attackChoice]}. Il reste {enemyHP}HP au {enemyPokemon} enemy.")
                 hp -= enemyChoice
                 print(f"{enemyPokemon} lance {otherAttacks[attackChoice]}. Il reste {hp} à ton {mainPokemon}")
+            #Potions
             elif battleChoice == 2:
                 if potions > 0:
                     hp = 60
@@ -86,6 +85,7 @@ def grass():
             else:
                 print("Tu t'enfuis.")
                 location()
+            #Décés du pokémon
         if hp <= 0 or enemyHP <= 0:
             if hp <= 0:
                 print("Tu es mort. Ton pokémon va étre envoyé à l'hopital.")
@@ -95,15 +95,18 @@ def grass():
                 enemyHP = 60
             battleOn = False
             location()
-
+#Ville
 def city():
     global potions
     global hp
+    #Choix de lieu
     locChoice = int(input("Où veux tu aller? (1) Hôpital | (2) Le magasin | (3) Quitter la ville "))
+    #hopital
     if locChoice == 1:
         print("Tu vas à l'hôpital, ton pokémon est guérit.")
         hp = 60
         location()
+        #magasin pour potions
     elif locChoice == 2:
         answer = int(input("Tu vas au magasin, combien de potions veux-tu? (max 2) "))
         if answer <= 2:
@@ -113,9 +116,10 @@ def city():
         else:
             print("Tu peux en prendre 2 au max")
             city()
+    #retour au choix de lieu
     elif locChoice == 3:
         location()
-
+#choix des lieux
 def location():
     locChoice = int(input("Où veux tu aller? (1) La route | (2) Les hautes herbes | (3) La ville "))
     if locChoice == 1:
@@ -125,7 +129,7 @@ def location():
     elif locChoice == 3:
         city()
 
-username = input("Comment t'appelles-tu? ")
+#Début du jeu
 pokemonChoice = int(input("Quel Pokémon veux-tu? (1) Pikachu | (2) Salamèche | (3) Carapuce " )) - 1
 mainPokemon = defaultPokemons[pokemonChoice]
 playerPokemons.append(mainPokemon)
@@ -140,4 +144,3 @@ elif mainPokemon == "Carapuce":
 
 print(f"Les attaques sont {attacks[0]}, {attacks[1]} et {attacks[2]}")
 location()
-
